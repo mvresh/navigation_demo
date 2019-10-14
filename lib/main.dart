@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      home: LoginPage(),
-      theme: ThemeData.dark(),
-    )
-  );
+  runApp(MaterialApp(
+    theme: ThemeData.dark(),
+    initialRoute: '/',
+    routes: {
+      '/': (context) => LoginPage(),
+      '/second': (context) => HomePage(),
+      '/third': (context) => SettingsPage(),
+      '/fourth': (context) => ProfilePage(),
+    },
+  ));
 }
 // TASK - Create navigation paths and screens as shown in the video using namedParameters
 // LoginPage - First Page
@@ -18,11 +22,82 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Navigation')),
+      appBar: AppBar(title: Text('Login')),
       body: Center(
         child: RaisedButton(
-          child: Text('Go to Home'),
-          onPressed: (){},
+          child: Text('Home'),
+          onPressed: (){
+            Navigator.pushNamed(context, '/second');
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Home Page"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/third');
+          },
+          child: Text('Settings'),
+        ),
+      ),
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Settings"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            RaisedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/');
+              },
+              child: Text('Logout'),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/fourth');
+              },
+              child: Text('Update Profile'),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Update Profile"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/third');
+          },
+          child: Text('Settings'),
         ),
       ),
     );
